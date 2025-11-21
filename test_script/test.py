@@ -1,0 +1,1 @@
+print("[test.py Python] Python Script Test")
