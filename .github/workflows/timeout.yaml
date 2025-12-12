@@ -36,6 +36,7 @@ jobs:
   timeout-job-done:
     runs-on: jeong
     needs: timeout-on-job
+    if: ${{ always() }}
     steps:
       # CMDの動作確認
       - name: timeout test 1-2
@@ -45,7 +46,8 @@ jobs:
   timeout-on-step:
     runs-on: jeong
     needs: timeout-job-done
-
+    if: ${{ always() }}
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
