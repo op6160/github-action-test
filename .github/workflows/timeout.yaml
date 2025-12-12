@@ -70,7 +70,7 @@ jobs:
 
   timeout-on-shell:
     runs-on: jeong
-    needs: timeout-step-done
+    needs: timeout-on-step
     if: ${{ always() }}
 
     steps:
