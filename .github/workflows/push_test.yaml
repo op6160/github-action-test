@@ -10,15 +10,12 @@ permissions:
 
 jobs:
   push-job: 
-    # runs-on: jeong
     runs-on: ubuntu-latest
     timeout-minutes: 1 
 
     steps:
       - name: Setup - Checkout repository
         uses: actions/checkout@v4
-        # with:
-        #   token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup - Python
         uses: actions/setup-python@v6
@@ -32,8 +29,8 @@ jobs:
       - name: github push
         # pushを目指していて無限ループされるので、[skip ci]を追加
         run: |
-         git config --global user.email "jeong@gafs.co.jp"
-         git config --global user.name "jeong"
+         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+         git config --global user.name "github-actions[bot]"
          git status
          git add .
          git commit -m "add: add test file. It should not activate a new workflow executing. [skip ci]"
