@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   push-job: 
     # runs-on: jeong
@@ -14,8 +17,8 @@ jobs:
     steps:
       - name: Setup - Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+        #   token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup - Python
         uses: actions/setup-python@v6
