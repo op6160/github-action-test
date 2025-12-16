@@ -10,6 +10,9 @@ try:
         timeout=timeout
     )
 
+except Exception as e:
+    print(e, flush=True)
+
 finally:
     time.sleep(1)
     sys.exit(1)
