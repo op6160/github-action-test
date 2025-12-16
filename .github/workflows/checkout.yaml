@@ -1,0 +1,36 @@
+# checkout.yaml
+name: checkout feature test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  external-repo-checkout: 
+    runs-on: jeong
+
+    # Workflowが存在するメインリポジトリをチェックアウト
+    steps:
+      - name: Checkout my repository
+        uses: actions/checkout@v4
+
+      # 他のリポジトリをチェックアウトする
+      - name: Checkout external repository Hello-world
+        uses: actions/checkout@v4
+        with:
+          # リモートリポジトリのパス
+          repository: 'octocat/Hello-World' #
+          # （ランナー内）保存されるパス
+          path: 'hello_world'
+
+      - name: Checkout external repository Gitignore
+        uses: actions/checkout@v4
+        with:
+          repository: github/gitignore
+          path: 'gitignore'
+
+      - name: Verify Checkout
+        run: |
+          echo "Checkouted repositories"
+          ls -F
