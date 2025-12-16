@@ -8,7 +8,7 @@ on:
 
 jobs:
   external-repo-checkout: 
-    runs-on: jeong
+    runs-on: ubuntu-latest
 
     # Workflowが存在するメインリポジトリをチェックアウト
     steps:
