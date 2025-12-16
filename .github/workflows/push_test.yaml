@@ -33,5 +33,5 @@ jobs:
          git config --global user.name "github-actions[bot]"
          git status
          git add .
-         git commit -m "add: add test file. It should not activate a new workflow executing. [skip ci]"
+         git commit -m "add: add test file. It should not activate a new workflow executing."
          git push origin main 
