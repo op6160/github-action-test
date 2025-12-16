@@ -15,7 +15,7 @@ jobs:
       - name: Setup - Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.SECRET_TOKEN }}
+          # token: ${{ secrets.SECRET_TOKEN }}
           # persist-credentials: true # 続いてトークンを維持するかどうか
 
       - name: Setup - Python
