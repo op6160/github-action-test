@@ -1,0 +1,10 @@
+checkoutにPATを追加すると、Workflowで発生したPushでもWorkflowが反応するので無限ループに落ちる
+Commit message の最後に [skip ci] を書くと、影響しない
+または、
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'result/**'
+のように、Ignoreの追加も可能
