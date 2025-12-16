@@ -1,0 +1,35 @@
+name: Git push Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  timeout-on-job: 
+    # runs-on: jeong
+    runs-on: ubuntu-latest
+    timeout-minutes: 1 
+
+    steps:
+      - name: Setup - Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup - Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.12
+          check-latest: false
+
+      - name: execute script
+        run: python ./test_script/push_script.py
+      
+      - name: git push
+        env: 
+          GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }} # ~ 25.12.28
+        runs: |
+         git config --global user.email "jeong@gafs.co.jp"
+         git config --global user.name "jeong"
+         git add "./result/push_test/"
+         git commit -m "add: add test file. It should not activate a new workflow executing."
+         git push origin main 
