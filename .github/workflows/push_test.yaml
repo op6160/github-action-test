@@ -1,4 +1,4 @@
-name: Git push Test
+name: Git push test work
 
 on:
   push:
