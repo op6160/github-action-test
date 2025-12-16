@@ -35,9 +35,3 @@ jobs:
         run: |
           echo "Current Dir Containing Folders:"
           ls -F
-          echo " ====== "
-          echo "Check external repository: octocat/Hello-World"
-          ls -F ./hello_world
-          echo " ====== "
-          echo "Check external repository: github/gitignore"
-          ls -F ./gitignore
