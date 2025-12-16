@@ -1,0 +1,59 @@
+# timeout.yaml
+name: Github Action Test
+
+on:
+  # main brancheにpushされた場合、test.yaml Workflowが実行される
+  push:
+    branches:
+      - main
+
+# Jobs
+jobs:
+  # job単位のTimeout
+  timeout-on-job: 
+    runs-on: jeong
+    # timeout 1分設定　(最小１分、すべてのジョブを１分間実行)
+    # timeout-minutesはJobごとに、またはstepごとに設定することが可能
+    timeout-minutes: 1 
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.12  # 3.12バージョンを利用
+          check-latest: false   # Installされている場合、InstallせずCacheされているPythonを使う
+
+      # Timeout 動作確認
+      - name: Run timeout job1
+        run: python ./test_script/timeout.py # repositoryのtest.pyを実行
+
+  # step単位のTimeout
+  timeout-on-steps:
+    runs-on: jeong
+    # 実行条件
+    needs: timeout-on-job # timeout-on-jobが終わってから
+    if: ${{ always() }} # timeout-on-jobが失敗しても実行
+
+    steps:
+      # 各Jobは独立的に実行され、Jobごとに環境設定をする必要がある
+      - name: Set up repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.12 
+          check-latest: false  
+
+      - name: timeout by command line
+        if: ${{ always() }}
+        shell: bash # CMD, Powershellは不可
+        run: timeout 30s python ./test_script/timeout.py
+
+      - name: timeout by workflow option
+        if: ${{ always() }} # timeout-on-jobが失敗しても実行
+        timeout-minutes: 1
+        run: python ./test_script/timeout.py
