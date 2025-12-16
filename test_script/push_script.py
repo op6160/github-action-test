@@ -1,13 +1,13 @@
 import os
 
 def main():
-    result_dir = "../result/push_test/"
+    result_dir = "./result/push_test/"
     result_file_name = "test_result"
     result_count = 0
     result_file_extension = ".txt"
 
     if not os.path.exists(result_dir):
-        os.mkdir("../result")
+        os.mkdir("./result")
         os.mkdir(result_dir)
 
     while 1:
