@@ -1,7 +1,7 @@
 import time
 
 def printer(msg):
-    print(f"[timeout.py] [log]: {msg} {time.strftime('%H:%M:%S')}")
+    print(f"[timeout.py] [log]: {msg} {time.strftime('%H:%M:%S')}", flush=True)
 
 def main():
     cnt = 0
