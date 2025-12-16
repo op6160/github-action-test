@@ -30,8 +30,8 @@ jobs:
         # pushを目指していて無限ループされるので、[skip ci]を追加
         run: |
          git config --global user.email "jeong@gafs.co.jp"
-         git config --global user.name "jeong"
+         git config --global user.name "github-actions[bot]"
          git status
          git add .
-         git commit -m "add: add test file. It should not activate a new workflow executing. [skip ci]"
+         git commit -m "add: add test file. It should not activate a new workflow executing."
          git push origin main 
