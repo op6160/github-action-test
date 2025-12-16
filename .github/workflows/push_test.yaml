@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  timeout-on-job: 
+  push-job: 
     # runs-on: jeong
     runs-on: ubuntu-latest
     timeout-minutes: 1 
@@ -33,5 +33,5 @@ jobs:
          git config --global user.name "github-actions[bot]"
          git status
          git add .
-         git commit -m "add: add test file. It should not activate a new workflow executing."
+         git commit -m "add: add test file. It should not activate a new workflow executing. [skip ci]"
          git push origin main 
