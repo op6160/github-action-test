@@ -30,6 +30,7 @@ jobs:
         run: |
          git config --global user.email "jeong@gafs.co.jp"
          git config --global user.name "jeong"
+         git status
          git add .
          git commit -m "add: add test file. It should not activate a new workflow executing."
          git push origin main 
