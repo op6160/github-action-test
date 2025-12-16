@@ -15,8 +15,8 @@ try:
     print(result.stdout, flush=True)
 
 except subprocess.TimeoutExpired:
-    pass
+    print(f"[timeout_subprocess.py] [log]: Time Limit Exceeded({timeout}s) {time.strftime('%H:%M:%S')}", flush=True)
+
 
 finally:
-    print(f"[timeout_subprocess.py] [log]: Time Limit Exceeded({timeout}s) {time.strftime('%H:%M:%S')}", flush=True)
     sys.exit(1)
