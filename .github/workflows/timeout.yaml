@@ -9,17 +9,50 @@ on:
 
 # Jobs
 jobs:
-  # job単位のTimeout
-  timeout-on-job: 
+  # step単位Timeout
+  timeout-on-steps:
     runs-on: jeong
-    # timeout 1分設定　(最小１分、すべてのジョブを１分間実行)
-    # timeout-minutesはJobごとに、またはstepごとに設定することが可能
-    timeout-minutes: 1 
 
     steps:
+      # スクリプト実行設定
       - name: Set up repository
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.12 
+          check-latest: false  
 
+      # Worflow Timeout設定
+      - name: timeout by step option
+        if: ${{ always() }}
+        timeout-minutes: 1 # 分単位、最少１分
+        run: python ./test_script/timeout.py
+
+      # bashコマンドのtimeoutを利用
+      - name: timeout by bash
+        if: ${{ always() }}
+        shell: "C:\\jeong_installs\\Git\\bin\\bash.exe" # windowsで使える git bash利用
+        run: timeout 30s python ./test_script/timeout.py 
+
+      # python subprocessの実行時間制限機能を利用
+      - name: timeout by python script
+        if: ${{ always() }}
+        run: timeout_subprocess.py
+
+  # job単位Timeout設定
+  timeout-on-job: 
+    runs-on: jeong
+    # Job実行条件
+    needs: timeout-on-steps # timeout-on-stepsが終わってから実行
+    if: ${{ always() }} # timeout-on-stepsが失敗しても実行
+    # timeout設定
+    timeout-minutes: 1 # すべてのジョブを１分間実行
+
+    steps:
+      # 各Jobは独立的に実行され、Jobごとに環境設定をする必要がある
+      - name: Set up repository
+        uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -27,33 +60,5 @@ jobs:
           check-latest: false   # Installされている場合、InstallせずCacheされているPythonを使う
 
       # Timeout 動作確認
-      - name: Run timeout job1
+      - name: time check script - job
         run: python ./test_script/timeout.py # repositoryのtest.pyを実行
-
-  # step単位のTimeout
-  timeout-on-steps:
-    runs-on: jeong
-    # 実行条件
-    needs: timeout-on-job # timeout-on-jobが終わってから
-    if: ${{ always() }} # timeout-on-jobが失敗しても実行
-
-    steps:
-      # 各Jobは独立的に実行され、Jobごとに環境設定をする必要がある
-      - name: Set up repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: 3.12 
-          check-latest: false  
-
-      - name: timeout by command line
-        if: ${{ always() }}
-        shell: bash # CMD, Powershellは不可
-        run: timeout 30s python ./test_script/timeout.py
-
-      - name: timeout by workflow option
-        if: ${{ always() }} # timeout-on-jobが失敗しても実行
-        timeout-minutes: 1
-        run: python ./test_script/timeout.py

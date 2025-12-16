@@ -9,7 +9,7 @@ def main():
         cnt += 1
         time.sleep(1)
         printer(cnt)
-    printer("Done.")
+    printer(f"Time Limit Exceeded {cnt}(s)")
 
 if __name__ == "__main__":
     main()
