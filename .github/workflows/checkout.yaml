@@ -19,19 +19,23 @@ jobs:
       - name: Checkout external repository Hello-world
         uses: actions/checkout@v4
         with:
-          # リモートリポジトリのパス
-          repository: 'octocat/Hello-World' #
-          # （ランナー内）保存されるパス
-          path: 'hello_world'
-
+          repository: 'octocat/Hello-World' # リモートリポジトリのパス
+          path: 'hello_world' #./hello_worldの中に保存される
+          
       - name: Checkout external repository Gitignore
         uses: actions/checkout@v4
         with:
           repository: github/gitignore
           path: 'gitignore'
 
+
+      # 動作確認
       - name: Verify Checkout
         shell: bash
         run: |
-          echo "Checkouted repositories"
+          echo "Current Dir Containing Folders:"
           ls -F
+          echo "Check external repository: octocat/Hello-World"
+          ls -F ./hello_world
+          echo "Check external repository: github/gitignore"
+          ls -F ./gitignore
