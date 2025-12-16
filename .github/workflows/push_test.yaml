@@ -22,10 +22,10 @@ jobs:
           python-version: 3.12
           check-latest: false
 
-      - name: execute script
+      - name: Run - execute script
         run: python ./test_script/push_script.py
       
-      - name: github push
+      - name: Run - github push
         # pushを目指していて無限ループされるので、[skip ci]を追加
         run: |
          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
