@@ -6,7 +6,7 @@ timeout = 30 # 30秒
 
 try:
     result = subprocess.run(
-        ["python", "./timeout.py"],
+        ["python", "./test_script/timeout.py"],
         timeout=timeout
     )
 
