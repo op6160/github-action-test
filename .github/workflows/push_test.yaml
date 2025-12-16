@@ -1,15 +1,17 @@
-name: Git push test work
+name: Git push test
 
 on:
   push:
     branches:
       - main
 
+# pushするためにwrite権限が必要
 permissions:
   contents: write
 
 jobs:
   push-job: 
+    # テストにローカル環境の必要が無いのでgithub-hosted runnerを利用
     runs-on: ubuntu-latest
 
     steps:
@@ -22,15 +24,16 @@ jobs:
           python-version: 3.12
           check-latest: false
 
+      # テスト用新しいファイル作成スクリプト
       - name: Run - execute script
         run: python ./test_script/push_script.py
       
+      # git push
       - name: Run - github push
-        # pushを目指していて無限ループされるので、[skip ci]を追加
+        # Github Hostedランナーを私用する場合、Config設定が必要
         run: |
          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
          git config --global user.name "github-actions[bot]"
-         git status
          git add .
          git commit -m "add: add test file. It should not activate a new workflow executing."
          git push origin main 
