@@ -21,7 +21,7 @@ jobs:
         with:
           repository: 'octocat/Hello-World' # リモートリポジトリのパス
           path: 'hello_world' #./hello_worldの中に保存される
-          
+
       - name: Checkout external repository Gitignore
         uses: actions/checkout@v4
         with:
@@ -35,7 +35,9 @@ jobs:
         run: |
           echo "Current Dir Containing Folders:"
           ls -F
+          echo " ====== "
           echo "Check external repository: octocat/Hello-World"
           ls -F ./hello_world
+          echo " ====== "
           echo "Check external repository: github/gitignore"
           ls -F ./gitignore
