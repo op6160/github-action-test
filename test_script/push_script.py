@@ -15,11 +15,7 @@ def main():
         if not os.path.exists(result_file_path):
             with open(result_file_path, "w") as file:
                 file.write(str(result_count))
-                print(f"file writing done: {result_file_path}")
-            if os.path.exists(result_file_path):                
-                return result_count
-            else:
-                raise FileExistsError(result_file_path)
+            return result_count
         result_count += 1
 
 if __name__ == "__main__":
