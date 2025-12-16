@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Setup - Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SECRET_TOKEN }}
+          persist-credentials: true # 続いてトークンを維持するかどうか
 
       - name: Setup - Python
         uses: actions/setup-python@v6
@@ -25,8 +28,8 @@ jobs:
         run: python ./test_script/push_script.py
       
       - name: git push
-        env: 
-          GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }} # ~ 25.12.28
+        # env: 
+        #   GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }} # ~ 25.12.28
         run: |
          git config --global user.email "jeong@gafs.co.jp"
          git config --global user.name "jeong"
