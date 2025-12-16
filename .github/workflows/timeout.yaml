@@ -32,7 +32,7 @@ jobs:
       # bashコマンドのtimeoutを利用
       - name: timeout by bash
         if: ${{ always() }}
-        shell: "C:\\jeong_installs\\Git\\bin\\bash.exe" {0} # windowsで使える git bash利用
+        shell: "C:\\jeong_installs\\Git\\bin\\bash.exe {0}" # windowsで使える git bash利用
         run: timeout 30s python ./test_script/timeout.py 
 
       # python subprocessの実行時間制限機能を利用
