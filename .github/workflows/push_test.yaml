@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.SECRET_TOKEN }}
-          # persist-credentials: true # 続いてトークンを維持するかどうか
 
       - name: Setup - Python
         uses: actions/setup-python@v6
@@ -28,12 +27,11 @@ jobs:
         run: python ./test_script/push_script.py
       
       - name: git push
-        # env: 
-        #   GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }} # ~ 25.12.28
+        # pushを目指していて無限ループされるので、[skip ci]を追加
         run: |
          git config --global user.email "jeong@gafs.co.jp"
          git config --global user.name "jeong"
          git status
          git add .
-         git commit -m "add: add test file. It should not activate a new workflow executing."
+         git commit -m "add: add test file. It should not activate a new workflow executing. [skip ci]"
          git push origin main 
