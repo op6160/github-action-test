@@ -27,7 +27,7 @@ jobs:
       - name: git push
         env: 
           GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }} # ~ 25.12.28
-        runs: |
+        run: |
          git config --global user.email "jeong@gafs.co.jp"
          git config --global user.name "jeong"
          git add "./result/push_test/"
